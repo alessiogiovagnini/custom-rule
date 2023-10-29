@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<ruleset name="Custom Rules"
+    xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+    <description>
+        My custom rules
+    </description>
+      <rule name="ConstantNameViolation"
+         language="java"
+         message="PinotStyleViolation"
+         class="net.sourceforge.pmd.lang.rule.XPathRule">
+   <description>
+      Constants must be all uppercase letters separated by underscores
+   </description>
+   <priority>3</priority>
+   <properties>
+      <property name="version" value="3.1"/>
+      <property name="xpath">
+         <value>
+<![CDATA[
+//VariableDeclaratorId[@Final = true() and @Static = true() and not(matches(@Name, "^(_?log)|([A-Z][A-Z0-9]*(_[A-Z0-9]+)*)$")) and not(./following-sibling::ConstructorCall)]
+
+]]>
+         </value>
+      </property>
+   </properties>
+</rule>
+
+   <rule name="StaticNameViolation"
+      language="java"
+      message="PinotStyleViolation"
+      class="net.sourceforge.pmd.lang.rule.XPathRule">
+   <description>
+      Static variables must be camel case starting with an underscore
+      and lowercase letter
+   </description>
+   <priority>3</priority>
+   <properties>
+      <property name="version" value="3.1"/>
+      <property name="xpath">
+         <value>
+<![CDATA[
+//VariableDeclaratorId[@Static = true() and @Final = false() and not(matches(@Name, "^_[a-z][a-zA-Z0-9]*$"))]
+]]>
+         </value>
+      </property>
+   </properties>
+</rule>
+
+   <rule name="PackageStyleViolation"
+         language="java"
+         message="PinotStyleViolation"
+         class="net.sourceforge.pmd.lang.rule.XPathRule">
+         <description>
+            Package name must be all lowercase letters separated by
+            periods
+         </description>
+         <priority>3</priority>
+         <properties>
+            <property name="version" value="3.1"/>
+            <property name="xpath">
+               <value>
+                  <![CDATA[
+                  //PackageDeclaration[not(matches(@Name, "^[a-z]+(\.[a-z][a-z0-9]*)*$"))]
+                  ]]>
+               </value>
+            </property>
+         </properties>
+   </rule>
+</ruleset>
